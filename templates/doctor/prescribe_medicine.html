@@ -1,0 +1,261 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+{% comment %} <div class="container">
+<form method="post">
+    {% csrf_token %}
+    {{ formset.management_form }}
+  <div id="id_formset">
+    {% for form in formset %}
+    {% for field in form %}
+    <div class="form-group">
+        <label for="{{ field.id_for_label }}">{{field.label}}</label>
+        {{ field }}
+        {% if field.errors %}
+        <ul class="alert alert-danger">
+            {% for error in field.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        
+      </div>
+    {% endfor %}
+    
+    {% endfor %}
+  </div class="test">
+     {% for form in formset.empty_form|default:total_forms %}
+       {% for field in form %}
+    <div class="form-group">
+        <label for="{{ field.id_for_label }}"><b>{{field.label}}</b></label>
+        {{ field }}
+        {% if field.errors %}
+        <ul class="alert alert-danger">
+            {% for error in field.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    {% endfor %}
+    <button type="button" class="remove-form">Remove</button>
+    {% endfor %} 
+    <br>
+    <input type="hidden" value="{{total_forms}}" id="id_total_forms">
+    <button type="button" id="add-form">Add Form</button>
+    <button type="submit">Submit</button>
+  </form>
+</div> {% endcomment %}
+<div class="container">
+<div class="medicine-formset-container">
+  <form method="post">
+    {% csrf_token %}
+    <div class="medicine-formset-template" style="display: none;">
+      <div class="card">
+        <div class="card-body">
+          <div class="left-right-container">
+            <h5 class="left">{% trans "Medicine Form" %} </h5>
+            <a href="#" class="remove-medicine btn btn-danger"> {% trans "Remove Medicine" %} </a>
+          </div>
+          {% for field in prescribed_medicines_formset.empty_form %}
+          
+            <div class="form-group">
+              <label for="{{ field.id_for_label }}"><b>{{ field.label }}</b></label>
+              {{ field }}
+              {% if field.errors %}
+                <ul class="alert alert-danger">
+                  {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+            
+          {% endfor %}
+          
+        </div>
+      </div>
+    </div>
+  {% for field in prescription_form %}
+    <div class="form-group">
+        <label for="{{ field.id_for_label }}"><b>{{field.label}}</b></label>
+        {{ field }}
+        {% if field.errors %}
+        <ul class="alert alert-danger">
+            {% for error in field.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    {% endfor %}
+  <div class="medicine-formset">
+    
+
+      {{ prescribed_medicines_formset.management_form }}
+      {% for form in prescribed_medicines_formset %}
+      {% with forloop.counter as medicine_number %}
+      <div class="card">
+        <div class="card-body">
+          <div class="left-right-container">
+            <h5 class="left">{% trans "Medicine Form" %} </h5>
+            <a href="#" class="remove-medicine btn btn-danger"> {% trans "Remove Medicine" %} </a>
+          </div>
+          {% for field in form %}
+          
+            <div class="form-group">
+              <label for="{{ field.id_for_label }}"><b>{{ field.label }}</b></label>
+              {{ field }}
+              {% if field.errors %}
+                <ul class="alert alert-danger">
+                  {% for error in field.errors %}
+                    <li>{{ error }}</li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </div>
+            
+          {% endfor %}
+          
+        </div>
+      </div>
+      
+      {% endwith %}
+      {% endfor %}
+  </div>
+</div>
+
+<br>
+<a href="#" id="add-medicine" class="btn btn-success">Add Medicine</a>
+<button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+
+
+  
+  <script>
+    {% comment %} var addFormButton = document.getElementById("add-form");
+    document.getElementById("add-form").addEventListener("click", function() {
+      // Increase the desired number of forms
+      var totalFormsField = document.getElementById("id_total_forms");
+      totalFormsField.value = parseInt(totalFormsField.value) + 1;
+      // Add a new form to the formset
+      var formContainer = document.getElementById("id_formset");
+      var formIndex = parseInt(totalFormsField.value) - 1;
+      var newForm = document.createElement("div");
+      newForm.innerHTML = `{{ formset.empty_form|default:"" }}`.replace(/__prefix__/g, formIndex);
+      formContainer.appendChild(newForm);
+    });
+
+    function removeForm() {
+      // Decrease the desired number of forms
+      totalFormsField.value = parseInt(totalFormsField.value) - 1;
+      // Remove the corresponding form from the formset
+      var formContainer = this.parentElement;
+      formContainer.parentElement.removeChild(formContainer);
+    }
+  
+    addFormButton.addEventListener("click", addForm);
+    document.querySelectorAll(".remove-form").forEach(function(button) {
+      button.addEventListener("click", removeForm);
+    });
+    newForm.querySelector(".remove-form").addEventListener("click", removeForm); {% endcomment %}
+    {% comment %} var addFormButton = document.getElementById("add-form");
+  var formContainer = document.getElementById("id_formset");
+  var totalFormsField = document.getElementById("id_total_forms");
+
+  function addForm() {
+    // Increase the desired number of forms
+    totalFormsField.value = parseInt(totalFormsField.value) + 1;
+    // Add a new form to the formset
+    var formIndex = parseInt(totalFormsField.value) - 1;
+    var newForm = document.createElement("div");
+    newForm.innerHTML = `{{ formset.empty_form|default:"" }}`.replace(/__prefix__/g, formIndex);
+    newForm.querySelector(".remove-form").addEventListener("click", removeForm);
+    formContainer.appendChild(newForm);
+  }
+
+  function removeForm() {
+    // Decrease the desired number of forms
+    totalFormsField.value = parseInt(totalFormsField.value) - 1;
+    // Remove the corresponding form from the formset
+    var formContainer = this.parentElement;
+    formContainer.parentElement.removeChild(formContainer);
+  }
+
+  addFormButton.addEventListener("click", addForm);
+  document.querySelectorAll(".remove-form").forEach(function(button) {
+    button.addEventListener("click", removeForm);
+  }); {% endcomment %}
+  
+  </script>
+
+  {% comment %} <script>
+    
+      $(document).ready(function() {
+          // Function to handle adding new formset
+          $('#add-medicine').click(function(e) {
+              e.preventDefault();
+              
+              // Clone the last formset and remove its values
+              var lastFormset = $('.medicine-formset:last');
+              var clonedFormset = lastFormset.clone();
+              clonedFormset.find('input').val('');
+              
+              // Append the cloned formset to the container
+              $('.medicine-formset-container').append(clonedFormset);
+              
+              // Show the remove button for all formsets
+              $('.remove-medicine').show();
+          });
+          if ($('.medicine-formset').length === 1) {
+            $('.medicine-formset .remove-medicine').hide();
+        }
+          
+          // Function to handle removing formset
+          $('.medicine-formset-container').on('click', '.remove-medicine', function(e) {
+              e.preventDefault();
+              
+              // Remove the current formset
+              if ($('.medicine-formset').length != 1) {
+                
+              $(this).closest('.medicine-formset').remove();
+              }
+              else{
+                alert("At least one medicine should be added");
+              }
+              
+              // Hide the remove button for the first remaining formset
+              if ($('.medicine-formset').length === 1) {
+                  $('.medicine-formset .remove-medicine').hide();
+              }
+          });
+      });
+      </script> {% endcomment %}
+
+      <script>
+        $(document).ready(function() {
+          var formCount = {{ prescribed_medicines_formset|length }};
+          
+          $('#add-medicine').click(function(e) {
+            e.preventDefault();
+            
+            var templateFormset = $('.medicine-formset-template').clone();
+            templateFormset.html(templateFormset.html().replace(/__prefix__/g, formCount));
+            
+            $('.medicine-formset-container').append(templateFormset.html());
+            
+            formCount++;
+          });
+          
+          $('.medicine-formset-container').on('click', '.remove-medicine', function(e) {
+            e.preventDefault();
+            
+            $(this).closest('.medicine-formset').remove();
+          });
+        });
+        </script>
+    
+  
+
+  {% endblock %}

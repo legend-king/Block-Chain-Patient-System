@@ -1,0 +1,168 @@
+{% load static %}
+{% load i18n %}
+<link
+      rel="stylesheet"
+      href="{%static 'css/dashboard.css'%}"
+      type="text/css"
+      media="screen"
+    />
+{% if user.patient %}
+<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+  <div class="sidebar-sticky">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link {% if disp == 'profile' %} active {% endif %}" href="{% url 'patient_profile' %}">
+          <span data-feather="home"></span>
+          {% trans "Profile" %} <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if disp == 'search_doctor' %} active {% endif %}" href="{% url 'patient_search_doctor' %}">
+          {% trans "Search Doctor" %}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if disp == 'chat' %} active {% endif %}" href="{% url 'patient_doctor_chat' %}">
+          {% trans "Chats" %}
+        </a>
+      </li>
+      {% comment %} <li class="nav-item">
+        <a class="nav-link" href="">
+          {% trans "Physical Activity" %}
+        </a>
+      </li> {% endcomment %}
+    </ul>
+
+    <h6
+      class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
+    >
+      <span>{% trans "Reports" %}</span>
+      <a
+        class="d-flex align-items-center text-muted"
+        href="#"
+        aria-label="Add a new report"
+      >
+        <span data-feather="plus-circle"></span>
+      </a>
+    </h6>
+    <ul class="nav flex-column mb-2">
+      <li class="nav-item">
+        <a class="nav-link {% if disp == 'report_list' %} active {% endif %}" href="{% url 'patient_report_list' %}">
+          {% trans "Report List" %}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if disp == 'report_upload' %} active {% endif %}" href="{% url 'patient_report_upload' %}">
+          <span data-feather="file-text"></span>
+          {% trans "Upload Report" %}
+        </a>
+      </li>
+    </ul>
+
+    {% comment %} <h6
+      class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
+    >
+      <span>Settings</span>
+      <a
+        class="d-flex align-items-center text-muted"
+        href="#"
+        aria-label="Add a new report"
+      >
+        <span data-feather="plus-circle"></span>
+      </a>
+    </h6>
+    <ul class="nav flex-column mb-2">
+      <li class="nav-item">
+        <a class="nav-link" href="">
+          General
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <span data-feather="file-text"></span>
+          Account
+        </a>
+      </li>
+    </ul> {% endcomment %}
+  </div>
+</nav>
+
+
+{% elif user.doctor %}
+
+
+<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+  <div class="sidebar-sticky">
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link {% if disp == 'profile' %} active {% endif %}" href="{% url 'doctor_profile' %}">
+          <span data-feather="home"></span>
+          {% trans "Profile" %} <span class="sr-only">(current)</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if disp == 'chat' %} active {% endif %}" href="{% url 'patient_doctor_chat' %}">
+          {% trans "Chats" %}
+        </a>
+      </li>
+      {% comment %} <li class="nav-item">
+        <a class="nav-link" href="">
+          Physical Activity
+        </a>
+      </li> {% endcomment %}
+    </ul>
+
+    {% comment %} <h6
+      class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
+    >
+      <span>Reports</span>
+      <a
+        class="d-flex align-items-center text-muted"
+        href="#"
+        aria-label="Add a new report"
+      >
+        <span data-feather="plus-circle"></span>
+      </a>
+    </h6> {% endcomment %}
+    {% comment %} <ul class="nav flex-column mb-2">
+      <li class="nav-item">
+        <a class="nav-link" href="">
+          Report List
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="">
+          <span data-feather="file-text"></span>
+          Upload Report
+        </a>
+      </li>
+    </ul> {% endcomment %}
+
+    {% comment %} <h6
+      class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
+    >
+      <span>Settings</span>
+      <a
+        class="d-flex align-items-center text-muted"
+        href="#"
+        aria-label="Add a new report"
+      >
+        <span data-feather="plus-circle"></span>
+      </a>
+    </h6>
+    <ul class="nav flex-column mb-2">
+      <li class="nav-item">
+        <a class="nav-link" href="">
+          General
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <span data-feather="file-text"></span>
+          Account
+        </a>
+      </li>
+    </ul> {% endcomment %}
+  </div>
+</nav>
+{% endif %}

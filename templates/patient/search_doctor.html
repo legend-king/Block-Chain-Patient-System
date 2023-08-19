@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+<link
+      rel="stylesheet"
+      href="{%static 'css/multi-select-tag.css'%}"
+      type="text/css"
+      media="screen"
+    />
+    <script src="{% static 'js/multi-select-tag.js' %}"></script>    
+    
+
+    
+  
+<div class="container">
+    <div class="form-container">
+    <form method="GET" >
+    <select name="specialists" id="specialists" multiple>
+      {% for specialist in specialists %}
+        <option value="{{ specialist.id }}" {% if specialist.id in selected_specialists %} selected {% endif %}>{{ specialist.name }}</option>
+      {% endfor %}
+    </select>
+    <br>
+    <input type="submit" value="Search" class="form-control btn btn-primary">
+  </form>
+</div>
+  
+<br>
+  {% if doctors %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        {% trans "Name" %}
+                    </th>
+                    <th>
+                        {% trans "Gender" %}
+                    </th>
+                    <th>
+                        {% trans "Specialist" %}
+                    </th>
+                    <th>
+                        {% trans "Address" %}
+                    </th>
+                    <th>{% trans "Chat" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for doctor in doctors %}
+                <tr>
+                    <td>{{ doctor.name }}</td>
+                    <td>{{ doctor.get_gender_display }}</td>
+                    <td><ul>
+                        {% for specialist in doctor.specialists.all %}
+                            <li>{{ specialist.name }}</li>
+                        {% endfor %}
+                        </ul></td>
+                    
+                    <td>
+                        {{doctor.address}}
+                        </td>
+
+                    <td><a href="{% url 'patient_doctorchat_add' doctor.id %}" class="btn btn-primary"> Chat </a></td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if check %}
+            <div class="center">
+            <div class="pagination1">
+            {% if doctors.has_previous %}
+                <a href="?page={{ doctors.previous_page_number }}">Previous</a>
+            {% endif %}
+            {% for page_number in doctors.paginator.page_range %}
+                        <a
+                            href="?page={{page_number}}"
+                            class="{% if page_number == doctors.number %}active{% endif %}"
+                        >
+                            {{page_number}}
+                        </a>
+                {% endfor %}
+                {% if doctors.has_next %}
+                <a href="?page={{ doctors.next_page_number }}">Next</a>
+            {% endif %}
+            </div>
+            </div>
+            {% endif %}
+    </div>
+    {% else %}
+    <p>{% trans "No Doctors found." %}</p>
+    {% endif %}
+
+    <script>
+        new MultiSelectTag('specialists')
+    </script>
+  
+  {% endblock %}
+  
+  

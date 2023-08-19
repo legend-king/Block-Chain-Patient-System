@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load i18n %}
+<div class="table-container">
+    <div class="left-right-container">
+        <h2 class="left">{% trans "Reports :" %} </h2>
+        <a href="{% url 'patient_report_upload' %}" class="btn btn-warning"> Upload Report </a>
+      </div>
+    
+    {% if reports %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        {% trans "Name" %}
+                    </th>
+                    <th>
+                        {% trans "Description" %}
+                    </th>
+                    <th>
+                        {% trans "Uploaded On" %}
+                    </th>
+                    <th>
+                        {% trans "View" %}
+                    </th>
+                    <th>{% trans "Download" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for report in reports %}
+                <tr>
+                    <td>{{ report.name }}</td>
+                    <td>{{ report.description }}</td>
+                    <td>{{ report.uploaded_at }}</td>
+                    
+                    <td>
+                        <a href="{% url 'patient_report_view' report.id %}" class="btn btn-primary" target="_blank"> View </a>
+                        </td>
+
+                    <td><a href="{{report.report_file.url}}" class="btn btn-primary" download>Download</a></td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% if check %}
+            <div class="center">
+            <div class="pagination1">
+            {% if reports.has_previous %}
+                <a href="?page={{ reports.previous_page_number }}">Previous</a>
+            {% endif %}
+            {% for page_number in reports.paginator.page_range %}
+                        <a
+                            href="?page={{page_number}}"
+                            class="{% if page_number == reports.number %}active{% endif %}"
+                        >
+                            {{page_number}}
+                        </a>
+                {% endfor %}
+                {% if reports.has_next %}
+                <a href="?page={{ reports.next_page_number }}">Next</a>
+            {% endif %}
+            </div>
+            </div>
+            {% endif %}
+    </div>
+    {% else %}
+    <p>{% trans "No reports found." %}</p>
+    {% endif %}
+
+
+</div>
+{% endblock %}

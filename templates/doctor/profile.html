@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+<section class="w-100 p-4" style="background-color: #eee; border-radius: .5rem .5rem 0 0;">
+
+
+
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img src="data:image/jpeg;base64,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" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+            <h5 class="my-3">{{ doctor.name }}</h5>
+            <p class="text-muted mb-1">{% trans "Doctor" %}</p>
+            <p class="text-muted mb-4">{{doctor.address}}</p>
+            <div class="d-flex justify-content-center mb-2">
+              <a type="button" class="btn btn-primary" href="{% url 'edit_doctor_profile' %}">Edit</a>
+            </div>
+          </div>
+        </div>
+        {% comment %} <div class="card mb-4 mb-lg-0">
+          <div class="card-body p-0">
+            <ul class="list-group list-group-flush rounded-3">
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fas fa-globe fa-lg text-warning"></i>
+                <p class="mb-0">https://mdbootstrap.com</p>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fab fa-github fa-lg" style="color: #333333;"></i>
+                <p class="mb-0">mdbootstrap</p>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fab fa-twitter fa-lg" style="color: #55acee;"></i>
+                <p class="mb-0">@mdbootstrap</p>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fab fa-instagram fa-lg" style="color: #ac2bac;"></i>
+                <p class="mb-0">mdbootstrap</p>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                <i class="fab fa-facebook-f fa-lg" style="color: #3b5998;"></i>
+                <p class="mb-0">mdbootstrap</p>
+              </li>
+            </ul>
+          </div>
+        </div> {% endcomment %}
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0"><b>{% trans "Full Name"%}</b></p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{doctor.name}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0"><b>{% trans "Email"%}</b></p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{doctor.email}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0"><b>{% trans "Mobile"%}</b></p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{doctor.phone_number}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0"><b>{% trans "User Name"%}</b></p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{doctor.user.username}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0"><b>{% trans "Address"%}</b></p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{doctor.address}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0"><b>{% trans "Gender"%}</b></p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{doctor.get_gender_display}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0"><b>{% trans "Specialists"%}</b></p>
+              </div>
+              <div class="col-sm-9">
+                <ul>
+                    {% for specialist in doctor.specialists.all %}
+                        <li>{{ specialist.name }}</li>
+                    {% endfor %}
+                    </ul>
+              </div>
+            </div>
+                
+            
+            
+          </div>
+        </div>
+        
+        
+      </div>
+    </div>
+
+  </section>
+
+
+  {% endblock %}
